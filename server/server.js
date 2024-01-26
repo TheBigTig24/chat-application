@@ -8,6 +8,8 @@ const accountRoutes = require('./routes/accounts')
 const app = express();
 
 // middleware
+var cors = require('cors');
+app.use(cors());
 app.use(express.json())
 app.use((req, res, next) => {
     console.log(req.path, req.method)

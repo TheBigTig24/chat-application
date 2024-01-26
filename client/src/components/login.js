@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    // TODO: CREATE SEPARATE FILE FOR ACC CREATION AND FIX CSS FOR BOTH PAGES 
     const logIn = (e) => {
         e.preventDefault();
+        console.log(email + " " + password)
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                console.log(userCredential)
+                console.log("your mom")
             })
             .catch((error) => {
                 console.log(error)

@@ -3,14 +3,18 @@ const mongoose = require('mongoose')
 
 // get all accs
 const getAllAccs = async (req, res) => {
-    const accounts = await Account.find({})
-
+    const accounts = await Account.find({}).sort( {userId: -1} )
     res.send(accounts);
 }
 
 // get single acc
 const getAcc = async (req, res) => {
     const { id } = req.params
+    console.log(id)
+    if (id == -69) {
+        const accounts = await Account.find({}).sort( {userId: -1} )
+        return res.send(accounts[0])
+    }
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({error: 'No such account'})
@@ -28,10 +32,12 @@ const getAcc = async (req, res) => {
 // create new acc
 const createAcc = async (req, res) => {
     const {userId, email, password} = req.body
-
+    console.log("HI");
+    console.log(req.body)
     // add doc to db
     try {
         const account = await Account.create( {userId, email, password} )
+        console.log("Hi again")
         res.send(account)
     } catch (error) {
         res.status(400).json( {error: error.message} )
